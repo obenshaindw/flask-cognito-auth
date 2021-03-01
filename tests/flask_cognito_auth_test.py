@@ -20,7 +20,10 @@ def test_cognito_config(app):
         app.config['COGNITO_REDIRECT_URI'] = "http://localhost:5000/cognito/callback"
         app.config['COGNITO_SIGNOUT_URI'] = "http://localhost:5000/login"
         app.config['ERROR_REDIRECT_URI'] = "page500"
-        config.state = config.random_hex_bytes(8)
+
+        csrf_state = config.random_hex_bytes(8)
+        config.state = csrf_state
+
         auth_mgr = config.get_auth_manager
         auth_mgr.jwt_key = "mypublickkey"
 
@@ -31,7 +34,11 @@ def test_cognito_config(app):
         assert config.redirect_error_uri == "page500"
         assert config.client_secret == "mysupersecretclientid"
         assert config.signout_uri == "http://localhost:5000/login"
+
         assert config.state == auth_mgr.csrf_state
+        assert csrf_state in config.state
+        assert csrf_state in auth_mgr.csrf_state
+
         assert auth_mgr.jwt_key == config.jwt_cognito_key
         assert config.exempt_methods == ['OPTIONS']
 
@@ -41,10 +48,10 @@ def test_cognito_config(app):
         app.config['COGNITO_DOMAIN'] = "mycognitodomain.com"
         assert config.domain == "https://mycognitodomain.com"
 
-        assert config.login_uri == (f"https://mycognitodomain.com/authorize"
-                                    f"?client_id=123drfthinvdr57opQWerv56"
-                                    f"&response_type=code&state={config.state}"
-                                    "&redirect_uri=http://localhost:5000/cognito/callback")
+        assert config.login_uri(state=csrf_state) == (f"https://mycognitodomain.com/authorize"
+                                                      f"?client_id=123drfthinvdr57opQWerv56"
+                                                      f"&response_type=code&state={csrf_state}"
+                                                      "&redirect_uri=http://localhost:5000/cognito/callback")
 
         assert config.logout_uri == (f"https://mycognitodomain.com/logout?response_type=code"
                                      f"&client_id=123drfthinvdr57opQWerv56"

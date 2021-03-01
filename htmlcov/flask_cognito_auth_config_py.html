@@ -22,8 +22,8 @@
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            103 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">102 run</button>
+            102 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">101 run</button>
             <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">1 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
             <button type="button" class="par run show_par shortkey_p button_toggle_par" title="Toggle lines partially run">1 partial</button>
@@ -208,33 +208,32 @@
     <p id="t153" class="run"><span class="n"><a href="#t153">153</a></span><span class="t">    <span class="op">@</span><span class="nam">state</span><span class="op">.</span><span class="nam">setter</span>&nbsp;</span><span class="r"></span></p>
     <p id="t154" class="run"><span class="n"><a href="#t154">154</a></span><span class="t">    <span class="key">def</span> <span class="nam">state</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">value</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t155" class="run"><span class="n"><a href="#t155">155</a></span><span class="t">        <span class="nam">auth_manager</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">get_auth_manager</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t156" class="run"><span class="n"><a href="#t156">156</a></span><span class="t">        <span class="nam">auth_manager</span><span class="op">.</span><span class="nam">csrf_state</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">random_hex_bytes</span><span class="op">(</span><span class="nam">n_bytes</span><span class="op">=</span><span class="num">8</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t156" class="run"><span class="n"><a href="#t156">156</a></span><span class="t">        <span class="nam">auth_manager</span><span class="op">.</span><span class="nam">csrf_state</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">value</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t157" class="pln"><span class="n"><a href="#t157">157</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t158" class="run"><span class="n"><a href="#t158">158</a></span><span class="t">    <span class="op">@</span><span class="nam">property</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t159" class="run"><span class="n"><a href="#t159">159</a></span><span class="t">    <span class="key">def</span> <span class="nam">login_uri</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t160" class="run"><span class="n"><a href="#t160">160</a></span><span class="t">        <span class="key">return</span> <span class="op">(</span><span class="str">f"{self.domain}/authorize?client_id={self.client_id}"</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t161" class="pln"><span class="n"><a href="#t161">161</a></span><span class="t">                <span class="str">f"&amp;response_type=code&amp;state={self.state}"</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t162" class="pln"><span class="n"><a href="#t162">162</a></span><span class="t">                <span class="str">f"&amp;redirect_uri={self.redirect_uri}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t163" class="pln"><span class="n"><a href="#t163">163</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t164" class="run"><span class="n"><a href="#t164">164</a></span><span class="t">    <span class="op">@</span><span class="nam">property</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t165" class="run"><span class="n"><a href="#t165">165</a></span><span class="t">    <span class="key">def</span> <span class="nam">logout_uri</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t166" class="run"><span class="n"><a href="#t166">166</a></span><span class="t">        <span class="key">return</span> <span class="op">(</span><span class="str">f"{self.domain}/logout?response_type=code"</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t167" class="pln"><span class="n"><a href="#t167">167</a></span><span class="t">                <span class="str">f"&amp;client_id={self.client_id}&amp;logout_uri={self.signout_uri}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t168" class="pln"><span class="n"><a href="#t168">168</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t169" class="run"><span class="n"><a href="#t169">169</a></span><span class="t">    <span class="key">def</span> <span class="nam">random_hex_bytes</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">n_bytes</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t170" class="pln"><span class="n"><a href="#t170">170</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t171" class="pln"><span class="n"><a href="#t171">171</a></span><span class="t"><span class="str">        Method create a hex encoded string of random bytes.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t172" class="pln"><span class="n"><a href="#t172">172</a></span><span class="t"><span class="str">        :param n_bytes: Length of random hex encoded string.</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t173" class="pln"><span class="n"><a href="#t173">173</a></span><span class="t"><span class="str">        :return h_bytes: Hex encoded string</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t174" class="pln"><span class="n"><a href="#t174">174</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t175" class="run"><span class="n"><a href="#t175">175</a></span><span class="t">        <span class="nam">h_bytes</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">urandom</span><span class="op">(</span><span class="nam">n_bytes</span><span class="op">)</span><span class="op">.</span><span class="nam">hex</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t176" class="run"><span class="n"><a href="#t176">176</a></span><span class="t">        <span class="key">return</span> <span class="nam">h_bytes</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t158" class="run"><span class="n"><a href="#t158">158</a></span><span class="t">    <span class="key">def</span> <span class="nam">login_uri</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">state</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t159" class="run"><span class="n"><a href="#t159">159</a></span><span class="t">        <span class="key">return</span> <span class="op">(</span><span class="str">f"{self.domain}/authorize?client_id={self.client_id}"</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t160" class="pln"><span class="n"><a href="#t160">160</a></span><span class="t">                <span class="str">f"&amp;response_type=code&amp;state={state}"</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t161" class="pln"><span class="n"><a href="#t161">161</a></span><span class="t">                <span class="str">f"&amp;redirect_uri={self.redirect_uri}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t162" class="pln"><span class="n"><a href="#t162">162</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t163" class="run"><span class="n"><a href="#t163">163</a></span><span class="t">    <span class="op">@</span><span class="nam">property</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t164" class="run"><span class="n"><a href="#t164">164</a></span><span class="t">    <span class="key">def</span> <span class="nam">logout_uri</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t165" class="run"><span class="n"><a href="#t165">165</a></span><span class="t">        <span class="key">return</span> <span class="op">(</span><span class="str">f"{self.domain}/logout?response_type=code"</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t166" class="pln"><span class="n"><a href="#t166">166</a></span><span class="t">                <span class="str">f"&amp;client_id={self.client_id}&amp;logout_uri={self.signout_uri}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t167" class="pln"><span class="n"><a href="#t167">167</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t168" class="run"><span class="n"><a href="#t168">168</a></span><span class="t">    <span class="key">def</span> <span class="nam">random_hex_bytes</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">n_bytes</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t169" class="pln"><span class="n"><a href="#t169">169</a></span><span class="t">        <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t170" class="pln"><span class="n"><a href="#t170">170</a></span><span class="t"><span class="str">        Method create a hex encoded string of random bytes.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t171" class="pln"><span class="n"><a href="#t171">171</a></span><span class="t"><span class="str">        :param n_bytes: Length of random hex encoded string.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t172" class="pln"><span class="n"><a href="#t172">172</a></span><span class="t"><span class="str">        :return h_bytes: Hex encoded string</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t173" class="pln"><span class="n"><a href="#t173">173</a></span><span class="t"><span class="str">        """</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t174" class="run"><span class="n"><a href="#t174">174</a></span><span class="t">        <span class="nam">h_bytes</span> <span class="op">=</span> <span class="nam">os</span><span class="op">.</span><span class="nam">urandom</span><span class="op">(</span><span class="nam">n_bytes</span><span class="op">)</span><span class="op">.</span><span class="nam">hex</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t175" class="run"><span class="n"><a href="#t175">175</a></span><span class="t">        <span class="key">return</span> <span class="nam">h_bytes</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.4</a>,
-            created at 2021-02-25 16:53 +0530
+            created at 2021-03-01 13:35 +0530
         </p>
     </div>
 </div>

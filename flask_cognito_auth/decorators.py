@@ -35,7 +35,7 @@ def login_handler(fn):
     def wrapper(*args, **kwargs):
         csrf_state = config.random_hex_bytes(n_bytes=8)
         config.state = csrf_state
-        aws_cognito_login = config.login_uri
+        aws_cognito_login = config.login_uri(state=csrf_state)
 
         # https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html
         res = redirect(aws_cognito_login)
@@ -83,7 +83,12 @@ def callback_handler(fn):
             logger.info("Code exchange is successfull.")
             logger.info("Validating CSRF state exchange of AWS Cognito")
 
-            if csrf_state == csrf_token:
+            if csrf_state in csrf_token:
+                logger.info(
+                    f"CSRF state validated against {csrf_state} with generated list of state {csrf_token}")
+
+                csrf_token.remove(csrf_state)
+
                 auth_success = True
                 logger.info(
                     "CSRF state validation successfull. Login is successfull for AWS Cognito")
@@ -104,6 +109,9 @@ def callback_handler(fn):
                                email=id_token["email"],
                                expires=id_token["exp"],
                                refresh_token=response.json()["refresh_token"])
+            else:
+                logger.info(
+                    f"States are not valid, Required from {csrf_token}, received {csrf_state}")
         if not auth_success:
             error_uri = config.redirect_error_uri
             if error_uri:

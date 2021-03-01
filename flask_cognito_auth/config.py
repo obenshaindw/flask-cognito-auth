@@ -153,12 +153,11 @@ class Config(object):
     @state.setter
     def state(self, value):
         auth_manager = self.get_auth_manager
-        auth_manager.csrf_state = self.random_hex_bytes(n_bytes=8)
+        auth_manager.csrf_state.append(value)
 
-    @property
-    def login_uri(self):
+    def login_uri(self, state):
         return (f"{self.domain}/authorize?client_id={self.client_id}"
-                f"&response_type=code&state={self.state}"
+                f"&response_type=code&state={state}"
                 f"&redirect_uri={self.redirect_uri}")
 
     @property
