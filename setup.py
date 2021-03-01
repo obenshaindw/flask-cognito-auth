@@ -126,6 +126,11 @@ def do_setup():
         keywords=['flask', 'amazon cognito', 'json web token',
                   'authentication', 'autorization'],
         author='Ankit Shrivastava',
+        author_email="ankit.v.shrivastava.0@gmail.com",
+        platforms="any",
+        project_urls={
+            "Repository": "https://github.com/shrivastava-v-ankit/flask-cognito-auth"
+        },
         url='https://github.com/shrivastava-v-ankit/flask-cognito-auth',
         packages=find_packages(include=[__NAME__.replace("-", "_")]),
         include_package_data=True,

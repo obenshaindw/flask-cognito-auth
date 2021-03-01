@@ -105,9 +105,6 @@ if __name__ == '__main__':
 
 ### Development Setup
 
-Using pipenv
-```bash
-pipenv install --dev 
 ```
 Using virtualenv
 ```bash

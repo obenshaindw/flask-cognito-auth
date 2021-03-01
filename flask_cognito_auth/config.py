@@ -145,13 +145,11 @@ class Config(object):
             jwt_key = auth_manager.jwt_key
         return jwt_key
 
-    @property
     def state(self):
         auth_manager = self.get_auth_manager
         return auth_manager.csrf_state
 
-    @state.setter
-    def state(self, value):
+    def set_state(self, value):
         auth_manager = self.get_auth_manager
         auth_manager.csrf_state.append(value)
 
