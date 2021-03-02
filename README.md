@@ -36,6 +36,7 @@ app.config['COGNITO_CLIENT_ID'] = "xxxxxxxxxxxxxxxxxxxxxxxxxx"
 app.config['COGNITO_CLIENT_SECRET'] = "xxxxxxxxxxxxxxxxxxxxxxxxxx"
 app.config['COGNITO_DOMAIN'] = "https://yourdomainhere.com"
 app.config["ERROR_REDIRECT_URI"] = "page500"        # Optional
+app.config["COGNITO_STATE"] = "mysupersecrethash"   # Optional
 
 app.config['COGNITO_REDIRECT_URI'] = "https://yourdomainhere/cognito/callback"  # Specify this url in Callback URLs section of Appllication client settings of User Pool within AWS Cognito Sevice. Post login application will redirect to this URL
 
@@ -118,7 +119,7 @@ pip install .
 
 ### Contributing
 
-1. Fork repo- https://github.com/ankit-shrivastava/flask-cognito-auth.git
+1. Fork repo- https://github.com/shrivastava-v-ankit/flask-cognito-auth.git
 2. Create your feature branch - `git checkout -b feature/name`
 3. Add Python test (pytest) and html covrage report for added   feature.
 4. Commit your changes - `git commit -am "Added name"`
