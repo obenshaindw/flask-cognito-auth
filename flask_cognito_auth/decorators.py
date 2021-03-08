@@ -97,7 +97,30 @@ def callback_handler(fn):
                 id_token = verify(
                     response.json()["id_token"], response.json()["access_token"])
 
-                username = id_token["cognito:username"]
+                username = None
+                email = None
+                if "identities" in id_token:
+                    logger.info(
+                        "Identities are present in authentication token. Will use that as priority.")
+
+                    for identity in id_token['identities']:
+                        if 'primary' in identity and identity['primary']:
+                            if 'userId' in identity:
+                                email = username = identity['userId']
+
+                    if not username:
+                        logger.info(
+                            "Primary identifier not present. Will look for very first occurance.")
+                        if len(id_token['identities']):
+                            identity = id_token['identities'][0]
+                            if 'userId' in identity:
+                                email = username = identity['userId']
+
+                if not username:
+                    username = id_token["cognito:username"]
+                if not email and 'email' in id_token:
+                    email = id_token["email"]
+
                 groups = None
                 if "cognito:groups" in id_token:
                     groups = id_token['cognito:groups']
@@ -105,7 +128,7 @@ def callback_handler(fn):
                 update_session(username=username,
                                id=id_token["sub"],
                                groups=groups,
-                               email=id_token["email"],
+                               email=email,
                                expires=id_token["exp"],
                                refresh_token=response.json()["refresh_token"])
         if not auth_success:
