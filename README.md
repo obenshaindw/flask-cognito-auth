@@ -1,7 +1,7 @@
 # Flask-Cognito-Auth
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![PyPI](https://img.shields.io/pypi/v/flask-cognito-auth)
+[![PyPI](https://img.shields.io/pypi/v/flask-cognito-auth.svg)](https://pypi.org/project/flask-cognito-auth)
 [![CircleCI](https://circleci.com/gh/shrivastava-v-ankit/flask-cognito-auth.svg?style=svg)](https://circleci.com/gh/shrivastava-v-ankit/flask-cognito-auth)
 
 
