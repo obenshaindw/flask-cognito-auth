@@ -100,6 +100,7 @@ def callback_handler(fn):
                 username = None
                 email = None
                 name = None
+                print(f'ID Token:{id_token}')
                 if "identities" in id_token:
                     logger.info(
                         "Identities are present in authentication token. Will use that as priority.")
@@ -202,6 +203,7 @@ def logout_handler(fn):
         * group (List of Cognito groups if any)
         * id
         * email
+        * name
         * expires
         * refresh_token
     """
