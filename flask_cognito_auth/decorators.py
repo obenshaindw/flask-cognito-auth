@@ -99,6 +99,7 @@ def callback_handler(fn):
 
                 username = None
                 email = None
+                name = None
                 if "identities" in id_token:
                     logger.info(
                         "Identities are present in authentication token. Will use that as priority.")
@@ -120,6 +121,8 @@ def callback_handler(fn):
                     username = id_token["cognito:username"]
                 if not email and 'email' in id_token:
                     email = id_token["email"]
+                if not name:
+                    name = id_token["name"]
 
                 groups = None
                 if "cognito:groups" in id_token:
@@ -129,6 +132,7 @@ def callback_handler(fn):
                                id=id_token["sub"],
                                groups=groups,
                                email=email,
+                               name=name,
                                expires=id_token["exp"],
                                refresh_token=response.json()["refresh_token"])
         if not auth_success:
@@ -143,7 +147,7 @@ def callback_handler(fn):
     return wrapper
 
 
-def update_session(username: str, id, groups, email: str, expires, refresh_token):
+def update_session(username: str, id, groups, email: str, name: str, expires, refresh_token):
     """
     Method to update the Flase Session object with the informations after
     successfull login.
@@ -152,6 +156,7 @@ def update_session(username: str, id, groups, email: str, expires, refresh_token
     :param groups (list):       List of AWS Cognito groups if authenticated
                                 user is subscribed.
     :param email (str):         AWS Cognito email if of authenticated user.
+    :param name (str):          AWS Cognito name of authenticated user.
     :param expires (str):       AWS Cognito session timeout.
     :param refresh_token (str): JWT refresh token received in respose.
     """
@@ -159,6 +164,7 @@ def update_session(username: str, id, groups, email: str, expires, refresh_token
     session['id'] = id
     session['groups'] = groups
     session['email'] = email
+    session['name'] = name
     session['expires'] = expires
     session['refresh_token'] = refresh_token
 
@@ -205,6 +211,7 @@ def logout_handler(fn):
                        id=None,
                        groups=None,
                        email=None,
+                       name=None,
                        expires=None,
                        refresh_token=None)
         logger.info(
