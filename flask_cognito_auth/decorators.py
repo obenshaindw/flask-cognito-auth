@@ -101,23 +101,22 @@ def callback_handler(fn):
                 email = None
                 name = None
                 print(f'ID Token:{id_token}')
-                if "identities" in id_token:
-                    logger.info(
-                        "Identities are present in authentication token. Will use that as priority.")
+                # if "identities" in id_token:
+                #     logger.info(
+                #         "Identities are present in authentication token. Will use that as priority.")
 
-                    for identity in id_token['identities']:
-                        if 'primary' in identity and identity['primary']:
-                            if 'userId' in identity:
-                                email = username = identity['userId']
+                #     for identity in id_token['identities']:
+                #         if 'primary' in identity and identity['primary']:
+                #             if 'userId' in identity and identity['providerName'] == 'Google':
+                #                 email = username = identity['userId']
 
-                    if not username:
-                        logger.info(
-                            "Primary identifier not present. Will look for very first occurance.")
-                        if len(id_token['identities']):
-                            identity = id_token['identities'][0]
-                            if 'userId' in identity:
-                                email = username = identity['userId']
-
+                #     if not username:
+                #         logger.info(
+                #             "Primary identifier not present. Will look for very first occurance.")
+                #         if len(id_token['identities']):
+                #             identity = id_token['identities'][0]
+                #             if 'userId' in identity:
+                #                 email = username = identity['userId']
                 if not username:
                     username = id_token["cognito:username"]
                 if not email and 'email' in id_token:
